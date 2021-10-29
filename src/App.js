@@ -1,27 +1,35 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import {useAuth0} from "@auth0/auth0-react";
 
 function App() {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    const {isLoading, isAuthenticated, loginWithRedirect, loginWithPopup, logout, user} = useAuth0();
 
-  const signIn = () => {
-    loginWithRedirect({
-      redirectUri: `http://localhost:3001`,
-    });
-  };
+    const signIn = () => {
+        loginWithPopup({
+            redirectUri: `http://localhost:3000`,
+        });
+    };
 
-  const logOutHandler = () => {
-    logout({
-      returnTo: `http://localhost:3001`,
-    });
-  };
+    const logOutHandler = () => {
+        logout({
+            returnTo: `http://localhost:3000`,
+        });
+    };
 
-  return (
-    <div className="App">
-      <button onClick={signIn}>Login</button>
-      <button onClick={logOutHandler}>Logout</button>
-      {isAuthenticated ? "Logged in" : "not logged in"}
-    </div>
-  );
+
+    if (isLoading) {
+        return <div className="App">
+            <text>Loading...</text>
+        </div>
+    } else
+        return (
+            <div className="App">
+                {!isAuthenticated ? <button onClick={signIn}>Login</button> : <text>{user.name}</text>}
+                <br/>
+                <button onClick={logOutHandler}>Logout</button>
+                <br/>
+                {isAuthenticated ? "Logged in" : "not logged in"}
+            </div>
+        );
 }
 
 export default App;

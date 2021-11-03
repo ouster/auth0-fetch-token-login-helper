@@ -18,12 +18,12 @@ function App() {
 
     if (isLoading) {
         return <div className="App">
-            <text>Loading...</text>
+            <b>Loading...</b>
         </div>
     } else
         return (
             <div className="App">
-                {!isAuthenticated ? <button onClick={signIn}>Login</button> : <text>{user.name}</text>}
+                {!isAuthenticated ? <button onClick={signIn}>Login</button> : <b>{user.name}</b>}
                 <br/>
                 <button onClick={logOutHandler}>Logout</button>
                 <br/>
